@@ -7,10 +7,8 @@ import time
 from bs4 import BeautifulSoup
 import pdfkit
 import requests
-from airtable import Airtable
-from documentcloud import DocumentCloud
 import send2trash
-from common import wrap_from_module
+from common import airtab, airtab_log, dc, muh_headers, wrap_from_module
 
 
 # import logging
@@ -22,9 +20,6 @@ from common import wrap_from_module
 # logging.basicConfig(filename='jail_docket_pdfs.log', level=logging.DEBUG, format='%(asctime)s:%(levelname)s:%(message)s')
 
 
-airtab = Airtable(os.environ['jail_scrapers_db'], 'intakes', os.environ['AIRTABLE_API_KEY'])
-airtab_log = Airtable(os.environ['log_db'], 'log', os.environ['AIRTABLE_API_KEY'])
-dc = DocumentCloud(os.environ['DOCUMENT_CLOUD_USERNAME'], os.environ['DOCUMENT_CLOUD_PW'])
 jails_lst = [['mcdc', 'intake_number'],
              ['prcdf', 'intake_number'],
              ['lcdc', 'intake_number'],
@@ -34,8 +29,6 @@ jails_lst = [['mcdc', 'intake_number'],
              ['ccdc', 'bk'],
              ['acdc', 'bk'],
              ['hcdc', 'bk']]
-
-muh_headers = {'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36'}
 
 
 def damn_it(error_message):
